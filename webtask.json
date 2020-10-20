@@ -1,18 +1,15 @@
 {
-  "title": "Cota Auth0 to Logdna",
-  "name": "cota-auth0-to-logdna",
+  "title": "Auth0 to Customer.io",
+  "name": "auth0-to-customerio",
   "version": "1.0.0",
   "author": "auth0",
-  "description": "This extension will take all of your Auth0 logs and export them to Logdna",
+  "description": "This extension will take all of your Auth0 logs and export them to Customer.io",
   "initialUrlPath": "/login",
   "type": "cron",
   "category": "log_export",
-  "repository": "https://github.com/tnguyencota/cota-auth0-to-logdna",
-  "docsUrl": "https://github.com/tnguyencota/cota-auth0-to-logdna",
-  "keywords": [
-    "auth0",
-    "extension"
-  ],
+  "repository": "https://github.com/keylockerbv/auth0-to-customerio",
+  "docsUrl": "https://github.com/keylockerbv/auth0-to-customerio",
+  "keywords": ["auth0", "extension"],
   "schedule": "0 */5 * * * *",
   "auth0": {
     "createClient": true,
@@ -21,21 +18,8 @@
   },
   "secrets": {
     "BATCH_SIZE": {
-      "description": "The amount of logs to batch before sending to Logdna. A single cron execution will send multiple batches.",
+      "description": "The amount of logs to batch before sending. A single cron execution will send multiple batches. The maximum value is 100.",
       "default": 100
-    },
-    "HOSTNAME": {
-      "description": "The hostname of the log source",
-      "required": true
-    },
-    "LOGDNA_INGESTION_KEY": {
-      "description": "Logdna ingestion key",
-      "required": true,
-      "type": "password"
-    },
-    "LOGDNA_APP_NAME": {
-      "description": "The application name of the log source",
-      "required": true
     },
     "START_FROM": {
       "description": "Checkpoint ID of log to start from."
@@ -60,234 +44,15 @@
       ]
     },
     "LOG_LEVEL": {
-      "description": "This allows you to specify the log level of events that need to be sent",
-      "type": "select",
-      "allowMultiple": true,
-      "options": [
-        {
-          "value": "-",
-          "text": ""
-        },
-        {
-          "value": "0",
-          "text": "Debug"
-        },
-        {
-          "value": "1",
-          "text": "Info"
-        },
-        {
-          "value": "2",
-          "text": "Warning"
-        },
-        {
-          "value": "3",
-          "text": "Error"
-        },
-        {
-          "value": "4",
-          "text": "Critical"
-        }
-      ]
+      "default": 1
     },
-    "LOG_TYPES": {
-      "description": "If you only want to send events with a specific type (eg: failed logins)",
-      "type": "select",
-      "allowMultiple": true,
-      "options": [
-        {
-          "text": "",
-          "value": "-"
-        },
-        {
-          "text": "Success Login",
-          "value": "s"
-        },
-        {
-          "text": "Success Exchange",
-          "value": "seacft"
-        },
-        {
-          "text": "Success Exchange (Client Credentials)",
-          "value": "seccft"
-        },
-        {
-          "text": "Failed Exchange",
-          "value": "feacft"
-        },
-        {
-          "text": "Failed Exchange (Client Credentials)",
-          "value": "feccft"
-        },
-        {
-          "text": "Failed Login",
-          "value": "f"
-        },
-        {
-          "text": "Warnings During Login",
-          "value": "w"
-        },
-        {
-          "text": "Deleted User",
-          "value": "du"
-        },
-        {
-          "text": "Failed Login (invalid email/username)",
-          "value": "fu"
-        },
-        {
-          "text": "Failed Login (wrong password)",
-          "value": "fp"
-        },
-        {
-          "text": "Failed by Connector",
-          "value": "fc"
-        },
-        {
-          "text": "Failed by CORS",
-          "value": "fco"
-        },
-        {
-          "text": "Connector Online",
-          "value": "con"
-        },
-        {
-          "text": "Connector Offline",
-          "value": "coff"
-        },
-        {
-          "text": "Failed Connector Provisioning",
-          "value": "fcpro"
-        },
-        {
-          "text": "Success Signup",
-          "value": "ss"
-        },
-        {
-          "text": "Failed Signup",
-          "value": "fs"
-        },
-        {
-          "text": "Code Sent",
-          "value": "cs"
-        },
-        {
-          "text": "Code/Link Sent",
-          "value": "cls"
-        },
-        {
-          "text": "Success Verification Email",
-          "value": "sv"
-        },
-        {
-          "text": "Failed Verification Email",
-          "value": "fv"
-        },
-        {
-          "text": "Success Change Password",
-          "value": "scp"
-        },
-        {
-          "text": "Failed Change Password",
-          "value": "fcp"
-        },
-        {
-          "text": "Success Change Email",
-          "value": "sce"
-        },
-        {
-          "text": "Failed Change Email",
-          "value": "fce"
-        },
-        {
-          "text": "Success Change Username",
-          "value": "scu"
-        },
-        {
-          "text": "Failed Change Username",
-          "value": "fcu"
-        },
-        {
-          "text": "Success Change Phone Number",
-          "value": "scpn"
-        },
-        {
-          "text": "Failed Change Phone Number",
-          "value": "fcpn"
-        },
-        {
-          "text": "Success Verification Email Request",
-          "value": "svr"
-        },
-        {
-          "text": "Failed Verification Email Request",
-          "value": "fvr"
-        },
-        {
-          "text": "Success Change Password Request",
-          "value": "scpr"
-        },
-        {
-          "text": "Failed Change Password Request",
-          "value": "fcpr"
-        },
-        {
-          "text": "Failed Sending Notification",
-          "value": "fn"
-        },
-        {
-          "text": "API Operation",
-          "value": "sapi"
-        },
-        {
-          "text": "Failed API Operation",
-          "value": "fapi"
-        },
-        {
-          "text": "Blocked Account",
-          "value": "limit_wc"
-        },
-        {
-          "text": "Too Many Calls to /userinfo",
-          "value": "limit_ui"
-        },
-        {
-          "text": "Rate Limit On API",
-          "value": "api_limit"
-        },
-        {
-          "text": "Successful User Deletion",
-          "value": "sdu"
-        },
-        {
-          "text": "Failed User Deletion",
-          "value": "fdu"
-        },
-        {
-          "text": "Blocked Account",
-          "value": "limit_wc"
-        },
-        {
-          "text": "Blocked IP Address",
-          "value": "limit_mu"
-        },
-        {
-          "text": "Success Logout",
-          "value": "slo"
-        },
-        {
-          "text": "Failed Logout",
-          "value": "flo"
-        },
-        {
-          "text": "Success Delegation",
-          "value": "sd"
-        },
-        {
-          "text": "Failed Delegation",
-          "value": "fd"
-        }
-      ]
+    "CUSTOMERIO_SITE_ID": {
+      "description": "Customer.io site ID",
+      "required": true
+    },
+    "CUSTOMERIO_API_KEY": {
+      "description": "Customer.io API key",
+      "required": true
     }
   }
 }

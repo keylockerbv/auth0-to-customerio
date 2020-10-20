@@ -1,15 +1,18 @@
-const tools = require('auth0-extension-express-tools');
+const tools = require("auth0-extension-express-tools");
 
-const expressApp = require('./server');
-const config = require('./server/lib/config');
-const logger = require('./server/lib/logger');
+const expressApp = require("./server");
+const config = require("./server/lib/config");
+const logger = require("./server/lib/logger");
 
 const createServer = tools.createServer((config, storage) => {
-  logger.info('Starting Auth0 Logs to Logdna Extension - Version:', process.env.CLIENT_VERSION);
+  logger.info(
+    "Starting Auth0 Logs to Customer.io Extension - Version:",
+    process.env.CLIENT_VERSION
+  );
   return expressApp(config, storage);
 });
 
 module.exports = (context, req, res) => {
-  config.setValue('PUBLIC_WT_URL', tools.urlHelpers.getWebtaskUrl(req));
+  config.setValue("PUBLIC_WT_URL", tools.urlHelpers.getWebtaskUrl(req));
   createServer(context, req, res);
 };
