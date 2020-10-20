@@ -71,9 +71,7 @@ module.exports = () => {
               promises.push(
                 cio.track(customer["id"], {
                   name: event,
-                  data: {
-                    email_verified: user["email_verified"],
-                  },
+                  timestamp: Date.parse(log.date),
                 })
               );
             });
