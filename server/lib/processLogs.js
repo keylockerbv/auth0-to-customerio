@@ -18,6 +18,8 @@ module.exports = (storage) => (req, res, next) => {
     return next();
   }
 
+  const customerio = Customerio();
+
   const onLogsReceived = (logs, callback) => {
     if (!logs || !logs.length) {
       return callback();
@@ -25,8 +27,7 @@ module.exports = (storage) => (req, res, next) => {
 
     logger.info(`Sending ${logs.length} logs to Customer.io.`);
 
-    const customerio = Customerio();
-    customerio.send(logs, callback);
+    customerio(logs, callback);
   };
 
   const slack = new loggingTools.reporters.SlackReporter({
