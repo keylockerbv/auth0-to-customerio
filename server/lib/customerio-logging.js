@@ -49,20 +49,23 @@ module.exports = () => {
             clientSecret: config("AUTH0_CLIENT_SECRET"),
           })
           .then((auth0) => auth0.users.get({ id: log.user_id }))
-          .then((user) => {
+          .then(async (user) => {
             const req = cio.request;
-            return (
-              req.handler(
-                req.options(
-                  "https://api.customer.io/v1/api/customers?email=" +
-                    user["email"],
-                  "GET"
-                )
-              ),
-              user
-            );
+            const customers = (
+              await req.handler({
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: "Bearer " + config("CUSTOMER_IO_API_KEY"),
+                },
+                uri:
+                  "https://beta-api.customer.io/v1/api/customers?email=" +
+                  user["email"],
+                method: "GET",
+              })
+            ).results;
+            return { customers, user };
           })
-          .then((customers, user) => {
+          .then(({ customers, user }) => {
             let promises = [];
             customers.forEach((customer) => {
               promises.push(
