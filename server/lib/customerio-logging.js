@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const async = require("async");
-const CIO = require("customerio-node");
+const CIO = require("./customerio");
 const loggingTools = require("auth0-log-extension-tools");
 const managementApi = require("auth0-extension-tools").managementApi;
 
@@ -87,3 +87,4 @@ module.exports = () => {
     );
   };
 };
+Z;
