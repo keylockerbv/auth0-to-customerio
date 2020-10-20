@@ -1,7 +1,7 @@
 {
   "title": "Auth0 to Customer.io",
   "name": "auth0-to-customerio",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "auth0",
   "description": "This extension will take all of your Auth0 logs and export them to Customer.io",
   "initialUrlPath": "/login",
@@ -46,11 +46,11 @@
     "LOG_LEVEL": {
       "default": 1
     },
-    "CUSTOMERIO_SITE_ID": {
+    "CUSTOMER_IO_SITE_ID": {
       "description": "Customer.io site ID",
       "required": true
     },
-    "CUSTOMERIO_API_KEY": {
+    "CUSTOMER_IO_API_KEY": {
       "description": "Customer.io API key",
       "required": true
     }

@@ -2,8 +2,8 @@ const async = require("async");
 const moment = require("moment");
 const loggingTools = require("auth0-log-extension-tools");
 const Customerio = require("../lib/customerio-logging");
-const config = require("../lib/config");
-const logger = require("../lib/logger");
+const config = require("./config");
+const logger = require("./logger");
 
 module.exports = (storage) => (req, res, next) => {
   const wtBody =
