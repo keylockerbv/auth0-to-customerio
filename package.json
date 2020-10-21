@@ -1,6 +1,6 @@
 {
   "name": "auth0-to-customerio",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "This extension will take some of your Auth0 logs and export them to Customer.io.",
   "main": "index.js",
   "scripts": {

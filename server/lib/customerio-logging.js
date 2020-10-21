@@ -71,7 +71,7 @@ module.exports = () => {
               promises.push(
                 cio.track(customer["id"], {
                   name: event,
-                  timestamp: Date.parse(log.date),
+                  timestamp: Date.parse(log.date) / 1000,
                 })
               );
             });
