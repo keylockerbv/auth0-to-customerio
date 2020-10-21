@@ -75,7 +75,9 @@ module.exports = () => {
                 })
               );
             });
-            Promise.all(promises).then(cb);
+            Promise.all(promises)
+              .then(() => cb())
+              .catch(cb);
           })
           .catch((err) => {
             return cb(err);
