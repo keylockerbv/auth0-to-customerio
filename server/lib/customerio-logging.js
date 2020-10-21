@@ -39,7 +39,7 @@ module.exports = () => {
 
         const event = eventMap[log.type];
         if (!event) {
-          return callback();
+          return cb();
         }
 
         return managementApi
