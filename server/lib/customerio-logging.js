@@ -81,14 +81,10 @@ module.exports = () => {
               .catch(cb);
           })
           .catch((err) => {
-            if (err instanceof tools.NotFoundError) {
+            if (err.name == "Not Found") {
               logger.info("Skipping log entry because user was deleted");
               return cb();
-            } else if (
-              err instanceof tools.ManagementApiError ||
-              err instanceof tools.ValidationError ||
-              err instanceof tools.ArgumentError
-            ) {
+            } else if (err.name == "ManagementApiError") {
               // Prevent dumping the whole request with token to Slack.
               return cb(new Error(err.name + ": " + err.message));
             }

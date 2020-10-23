@@ -1,8 +1,8 @@
 {
   "title": "Auth0 to Customer.io",
   "name": "auth0-to-customerio",
-  "version": "1.2.1",
-  "preVersion": "1.2.0",
+  "version": "1.2.2",
+  "preVersion": "1.2.1",
   "author": "auth0",
   "description": "This extension will take all of your Auth0 logs and export them to Customer.io",
   "initialUrlPath": "/login",
