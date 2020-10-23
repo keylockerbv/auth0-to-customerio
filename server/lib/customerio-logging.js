@@ -3,6 +3,7 @@ const async = require("async");
 const CIO = require("./customerio");
 const loggingTools = require("auth0-log-extension-tools");
 const managementApi = require("auth0-extension-tools").managementApi;
+const tools = require("auth0-extension-tools");
 
 const config = require("./config");
 const logger = require("./logger");
@@ -80,6 +81,17 @@ module.exports = () => {
               .catch(cb);
           })
           .catch((err) => {
+            if (err instanceof tools.NotFoundError) {
+              logger.info("Skipping log entry because user was deleted");
+              return cb();
+            } else if (
+              err instanceof tools.ManagementApiError ||
+              err instanceof tools.ValidationError ||
+              err instanceof tools.ArgumentError
+            ) {
+              // Prevent dumping the whole request with token to Slack.
+              return cb(new Error(err.name + ": " + err.message));
+            }
             return cb(err);
           });
       },
