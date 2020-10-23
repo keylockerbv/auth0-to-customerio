@@ -2,6 +2,8 @@
 
 This extension will take some of your Auth0 logs and export them to Customer.io.
 
+The core functionality of this extension can be found in `server/lib/`.
+
 ## Usage
 
 In the Auth0 management, go to Extensions and create a new extension. Enter the URL of this repository when asked for an URL for the extension.
