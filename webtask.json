@@ -1,7 +1,8 @@
 {
   "title": "Auth0 to Customer.io",
   "name": "auth0-to-customerio",
-  "version": "1.1.4",
+  "version": "1.2.0",
+  "preVersion": "1.1.4",
   "author": "auth0",
   "description": "This extension will take all of your Auth0 logs and export them to Customer.io",
   "initialUrlPath": "/login",
@@ -26,6 +27,13 @@
     },
     "SLACK_INCOMING_WEBHOOK_URL": {
       "description": "Slack Incoming Webhook URL used to report statistics and possible failures"
+    },
+    "SLACK_REPORT_TIME": {
+      "description": "Hour of day on which to send the Slack Report",
+      "default": 16
+    },
+    "SLACK_REPORT_DAY": {
+      "description": "Numeric day of week (1=Monday) on which to send Slack report. Report is send ever day if not set."
     },
     "SLACK_SEND_SUCCESS": {
       "description": "This setting will enable verbose notifications to Slack which are useful for troubleshooting",

@@ -74,9 +74,15 @@ module.exports = (storage) => (req, res, next) => {
   const checkReportTime = () => {
     storage.read().then((data) => {
       const now = moment().format("DD-MM-YYYY");
-      const reportTime = config("DAILY_REPORT_TIME") || 16;
+      const reportTime = config("SLACK_REPORT_TIME") || 16;
 
       if (data.lastReportDate !== now && new Date().getHours() >= reportTime) {
+        if (
+          !!config("SLACK_REPORT_DAY") &&
+          config("SLACK_REPORT_DAY").toString() !== moment().day().toString()
+        ) {
+          return;
+        }
         sendDailyReport(now);
       }
     });
