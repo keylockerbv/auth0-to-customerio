@@ -15,6 +15,17 @@ const eventMap = {
   sv: "email_verified",
 };
 
+callbackWrapped = (cb) => {
+  return (err) => {
+    if (!!err.err) {
+      // Prevent an error with the property .err being unwrapped to err.err by Auht0's logging tools.
+      err.err2 = err.err;
+      delete err.err;
+    }
+    return cb(err)
+  }
+}
+
 module.exports = () => {
   logger.info(`Started Customer.io log sender`);
 
@@ -91,7 +102,7 @@ module.exports = () => {
             return cb(err);
           });
       },
-      callback
+      callbackWrapped(callback)
     );
   };
 };
