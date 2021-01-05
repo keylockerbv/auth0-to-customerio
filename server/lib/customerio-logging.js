@@ -28,6 +28,7 @@ callbackWrapped = (cb) => {
 
 module.exports = () => {
   logger.info(`Started Customer.io log sender`);
+  logger.error()
 
   const cio = new CIO(
     config("CUSTOMER_IO_SITE_ID"),
@@ -89,9 +90,14 @@ module.exports = () => {
             });
             Promise.all(promises)
               .then(() => cb())
-              .catch(cb);
+              .catch((err) => {
+                logger.error("cio tracking error")
+                logger.error(err)
+                cb(new Error("tracking error: " + err.toString()));
+              });
           })
           .catch((err) => {
+            logger.error(err)
             if (err.name == "Not Found") {
               logger.info("Skipping log entry because user was deleted");
               return cb();
@@ -99,7 +105,7 @@ module.exports = () => {
               // Prevent dumping the whole request with token to Slack.
               return cb(new Error(err.name + ": " + err.message));
             }
-            return cb(err);
+            return cb(new Error("processing log error: " + err.toString()));
           });
       },
       callbackWrapped(callback)
